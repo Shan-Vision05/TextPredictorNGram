@@ -21,7 +21,7 @@ class Corpora():
 
     def GetCorpus(self, nltk_corpus, max_sentences=5000):
         corpus = [" ".join(sentence) for sentence in nltk_corpus.sents()]
-        corpus = ["<s> " + sentence + " </s>" for sentence in corpus][:max_sentences]
+        corpus = ["<s> " + sentence.lower() + " </s>" for sentence in corpus][:max_sentences]
         return corpus  
 
         
