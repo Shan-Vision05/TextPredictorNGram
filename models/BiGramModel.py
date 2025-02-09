@@ -7,8 +7,6 @@ class BiGram():
         self.__SetupUnigram()
         self.__SetupBigram()
 
-    def LaplaceNormalization(self, counter):
-        counter = {key: value+1 for key, value in counter.items()}
 
     def __SetupUnigram(self):
         self.uniGram = Counter()
@@ -16,7 +14,7 @@ class BiGram():
         for sentence in self.corpus:
             for word in word_tokenize(sentence):
                 self.uniGram[word] += 1
-        self.LaplaceNormalization(self.uniGram)
+
 
     def __SetupBigram(self):
         self.biGram = Counter()
@@ -29,21 +27,34 @@ class BiGram():
         for i in range(len(words)-1):
             self.biGram[(words[i], words[i+1])] += 1
 
-        self.LaplaceNormalization(self.biGram)
+    def __GetUnigramCount(self, word):
+
+        if word in self.uniGram:
+            return (self.uniGram[word] + 1)
+        return 1
     
     def UniGramProbability(self, word:str):
+
+        total_count = sum(self.uniGram.values()) + len(self.uniGram.values())
         word = word.strip().lower()
-        if word in self.uniGram:
-            return self.uniGram[word] / sum(self.uniGram.values())
-        print("Word doesn't exist in corpus")
+
+        return self.__GetUnigramCount(word) / total_count
+
+    def __GetBigramCount(self, firstWord, secondWord):
+        if (firstWord, secondWord) in self.biGram:
+            return self.biGram[(firstWord, secondWord)] + 1
+        return 1
 
     def ConditionalProbabilityBiGram(self, firstWord:str, secondWord:str):
         firstWord = firstWord.strip().lower()
         secondWord = secondWord.strip().lower()
+        prior_counts = self.__GetUnigramCount(firstWord)
 
-        if (firstWord, secondWord) in self.biGram:
-            return self.biGram[(firstWord, secondWord)] / self.uniGram[firstWord]
-        print(f"Either words {firstWord} or {secondWord} not present in the corpus")
+        if firstWord not in self.uniGram:
+            prior_counts += len(self.uniGram.values())
+
+        return self.__GetBigramCount(firstWord, secondWord) / prior_counts
+
     
     def PredictNextWord(self, word:str):
         word = word.strip().lower()
