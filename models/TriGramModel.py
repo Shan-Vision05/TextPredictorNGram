@@ -79,6 +79,14 @@ class TriGram():
     
     return self.__GetTrigramCount(firstWord, secondWord, thirdWord)/prior_counts
 
+  def GetTrigramsForASentence(self, sentence):
+    words = word_tokenize(sentence)
+    trigrams = []
+    for i in range(len(words)-2):
+      trigrams.append((words[i], words[i+1], words[i+2]))
+
+    return trigrams
+
   def PredictNextWord(self, firstWord:str, secondWord:str):
     firstWord = firstWord.strip().lower()
     secondWord = secondWord.strip().lower()

@@ -28,7 +28,7 @@ class PerplexityScore():
 
         perplexity = (-1/lengthTokens) * (sum(logProbabilities))
 
-        return perplexity
+        return np.exp(perplexity)
         
 
 
@@ -48,4 +48,4 @@ class PerplexityScore():
 
         perplexity = (-1/lengthTokens) * (sum(logProbabilities))
 
-        return perplexity
+        return np.exp(perplexity)

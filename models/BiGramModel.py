@@ -55,6 +55,13 @@ class BiGram():
 
         return self.__GetBigramCount(firstWord, secondWord) / prior_counts
 
+    def GetBigramsForASentence(self, sentence):
+        words = word_tokenize(sentence)
+        bigrams = []
+        for i in range(len(words)-1):
+            bigrams.append((words[i], words[i+1]))
+
+        return bigrams
     
     def PredictNextWord(self, word:str):
         word = word.strip().lower()
@@ -78,4 +85,5 @@ class BiGram():
             next_word = max(candidates, key = candidates.get)
             sentence += next_word + ' '
             prevWord = next_word
+
         return sentence
