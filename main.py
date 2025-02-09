@@ -18,29 +18,6 @@ biGram_Webtext = BiGram(webtextCorpus)
 triGram_Brown = TriGram(brownCorpus)
 triGram_Webtext = TriGram(webtextCorpus)
 
-    # corpora = Corpora()
-
-    # brownCorpus = corpora.GetCorpus(brown)
-    # webtextCorpus = corpora.GetCorpus(webtext)
-    # reutersCorpus = corpora.GetCorpus(reuters)
-
-    # biGram_Brown = BiGram(brownCorpus)
-    # biGram_Webtext = BiGram(webtextCorpus)
-
-    # triGram_Brown = TriGram(brownCorpus)
-    # triGram_Webtext = TriGram(webtextCorpus)
-
-    # print(triGram_Brown.PredictNextWord("He", "said"))
-    # print(triGram_Brown.PredictNWords("He", "said", 10))
-
-    # perplexityBi = PerplexityScore(biGram_Brown)
-
-    # print(f"Perplexity BiGram: {perplexityBi.GetScore(reutersCorpus[0])}")
-
-    # perplexityTri = PerplexityScore(triGram_Brown)
-
-    # print(f"Perplexity TriGram: {perplexityTri.GetScore(reutersCorpus[0])}")
-
 ############### FUNCTIONS AS REQUESTED IN THE ASSIGNMENT ###############
 
 # Function to get the Unigram Probability of a word
