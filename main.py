@@ -22,7 +22,7 @@ triGram_Webtext = TriGram(webtextCorpus)
 
 # Function to get the Unigram Probability of a word
 
-def prob(word: str):
+def UnigramProb(word: str):
     choice = int(input('Enter 1 for Brown and 2 for WebText: '))
     model = GetModel((choice, 1))
 
@@ -40,13 +40,13 @@ def GetTrigramsInSentence(sentence: str):
     return model.GetTrigramsForASentence(sentence)
 
 # Function Conditional Probability BiGram
-def GetConditionalProbability(firstWord, secondWord):
+def GetConditionalProbabilityBiGram(firstWord, secondWord):
     choice = int(input('Enter 1 to use Brown corpus and 2 for WebText: '))
     model = GetModel((choice, 1))
 
     return model.ConditionalProbabilityBiGram(firstWord, secondWord)
 
-def GetConditionalProbability(firstWord, secondWord, thirdWord):
+def GetConditionalProbabilityTriGram(firstWord, secondWord, thirdWord):
     choice = int(input('Enter 1 to use Brown corpus and 2 for WebText: '))
     model = GetModel((choice, 2))
     return model.ConditionalProbabilityTriGram(firstWord, secondWord, thirdWord)
@@ -114,7 +114,7 @@ def main():
     ###### Question 1 Block ######
     print("\n \nQuestion 1: \n Finding Unigram Probability of a Word\n \n")
     word = input("Enter Word: ")
-    print(f"Unigram Probability of the word is : {prob(word):.5f}")
+    print(f"Unigram Probability of the word is : {UnigramProb(word):.5f}")
     ###### Question 1 Block End ######
 
     ###### Question 2 BiGram Block ######
@@ -126,46 +126,46 @@ def main():
     ######
 
     ######
-    twoWords = input('Q2 (ii) \n Enter Two words (seperated by space) to get thier conditional prob: \n')
+    twoWords = input('Q2 (ii) \n Enter Two words (seperated by space) to get thier conditional prob: \n ')
     firstWord, secondWord = twoWords.split(' ')
-    prob = GetConditionalProbability(firstWord, secondWord)
+    prob = GetConditionalProbabilityBiGram(firstWord, secondWord)
     print(f"The Conditional Prob of ({firstWord}, {secondWord}) is {prob:.5f}.")
     ######
 
     ######
-    word = input("Q2 (iii) \nEnter The word to get next word")
+    word = input("Q2 (iii) \nEnter The word to get next word ")
     print(f"The next word is: {GetNextWordBiGram(word)}")
     ######
 
     ######
-    word = input('Q2 (iv) \nEnter First to start sentence Generation')
+    word = input('Q2 (iv) \nEnter First word to start sentence Generation ')
     n = int(input('Enter number or words to predict: '))
     print(f"\nSentence: {GenerateNWordsBiGram(word, n)}")
     ######
 
     ##### Question 2 TriGram Block ######
-    print('\n\n Question 2: TriGram Functions \n \n')
+    print('\n\n Question 2: TriGram Functions \n \n ')
 
     ######
     sentence = input('Q2 (i) \nEnter the Sentence to get TriGrams: ')
-    print(f"Bigrams are: {GetTrigramsInSentence(sentence)} \n")
+    print(f"Trigrams are: {GetTrigramsInSentence(sentence)} \n")
     ######
 
     ######
-    threeWords = input('Q2 (ii) \n Enter Three words (seperated by space) to get thier conditional prob: \n')
+    threeWords = input('Q2 (ii) \n Enter Three words (seperated by space) to get thier conditional prob: \n ')
     firstWord, secondWord, thirdWord = threeWords.split(' ')
-    prob = GetConditionalProbability(firstWord, secondWord, thirdWord)
+    prob = GetConditionalProbabilityTriGram(firstWord, secondWord, thirdWord)
     print(f"The Conditional Prob of ({firstWord}, {secondWord}, {thirdWord}) is {prob:.5f}.")
     ######
 
     ######
-    word = input("Q2 (iii) \nEnter Two words separated by space to get next word")
+    word = input("Q2 (iii) \nEnter Two words separated by space to get next word ")
     firstWord, secondWord = word.split(' ')
     print(f"The next word is: {GetNextWordTriGram(firstWord, secondWord)}")
     ######
 
     ######
-    word = input("Q2 (iv) \Enter First Two words to start sentence Generation")
+    word = input("Q2 (iv) \Enter First Two words to start sentence Generation ")
     firstWord, secondWord = word.split(' ')
     n = int(input('Enter number or words to predict: '))
     print(f"\nSentence: {GenerateNWordsTriGram(firstWord, secondWord, n)}")
@@ -177,18 +177,18 @@ def main():
         choice = GetChoices()
         model = GetModel(choice)
 
-        sentence = input('Enter sample sentence to find Perplexity')
+        sentence = input('Enter sample sentence to find Perplexity: ')
         ps = PerplexityScore(model)
 
         print(f"Perplexity Score: {ps.GetScore(sentence):.2f}")
 
-        inp = input('Enter y/n to continue/stop:')
+        inp = input('Enter y/n to continue/stop: ')
         if inp == 'n':
             break
     ######
 
     ######
-    print("Average Perplexity on Reuters, by picking 25 random sentences:")
+    print("Average Perplexity on Reuters, by picking 25 random sentences: ")
     idxs = random.sample(range(len(reutersCorpus)), 25)
 
     model = GetModel((1,1)) # Brown BiGram 
